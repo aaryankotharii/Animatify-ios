@@ -31,8 +31,8 @@ enum LayerAnimationFactory {
         let pulse = CABasicAnimation(keyPath: "transform.scale")
         pulse.duration = duration
         pulse.toValue = toValue
-        pulse.timingFunction=CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeOut)
-        pulse.autoreverses=true
+        pulse.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeOut)
+        pulse.autoreverses = true
         pulse.repeatCount = .infinity
         return pulse
     }
@@ -47,25 +47,33 @@ enum LayerAnimationFactory {
         return translate
     }
     
-   static func getTranslateYAnimation(for duration : TimeInterval? = nil,withTanslation translation : Float? = nil) -> CABasicAnimation{
-       let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.y")
-    animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-       animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
-       animation.autoreverses = false
-       animation.byValue = translation ?? -5
-    animation.isRemovedOnCompletion = false
-    return animation
-       }
+    static func getTranslateYAnimation(for duration : TimeInterval? = nil,withTanslation translation : Float? = nil) -> CABasicAnimation{
+        let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.y")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
+        animation.autoreverses = false
+        animation.byValue = translation ?? -5
+        animation.isRemovedOnCompletion = false
+        return animation
+    }
     
+    
+    static func getTranslateYAnimation(duration : TimeInterval, withTanslation translation : Float? = nil) -> CABasicAnimation{
+        let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.y")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = duration
+        animation.autoreverses = false
+        animation.fromValue = translation
+        return animation
+    }
     
     static func setOpacity(for duration : TimeInterval = 1,to Value : Float = 1.0) -> CABasicAnimation{
-          let animation : CABasicAnimation = CABasicAnimation(keyPath: "opacity")
-       animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-          animation.duration = duration
-          animation.autoreverses = false
-          animation.toValue = Value
+        let animation : CABasicAnimation = CABasicAnimation(keyPath: "opacity")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = duration
+        animation.autoreverses = false
+        animation.toValue = Value
         animation.isRemovedOnCompletion = false
-       return animation
-          }
-    
+        return animation
+    }
 }

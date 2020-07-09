@@ -76,37 +76,27 @@ final class WifiEffect1: CAShapeLayer, CAAnimationDelegate {
         let cY: CGFloat = view.center.y
         
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: cX, y: cY), radius: (radius * scaleFactor), startAngle:  .pi*5/4, endAngle: -.pi/4, clockwise: true)
-        let circlePath2 = UIBezierPath(arcCenter: CGPoint(x: cX, y: cY), radius: (radius * scaleFactor * 0.7), startAngle:  .pi*5/4, endAngle: -.pi/4, clockwise: true)
-        let circlePath3 = UIBezierPath(arcCenter: CGPoint(x: cX, y: cY), radius: (radius * scaleFactor * 0.4), startAngle:  .pi*5/4, endAngle: -.pi/4, clockwise: true)
+        let circlePath2 = UIBezierPath(arcCenter: CGPoint(x: cX, y: cY - 6), radius: (radius * scaleFactor * 0.7), startAngle:  .pi*5/4, endAngle: -.pi/4, clockwise: true)
+        let circlePath3 = UIBezierPath(arcCenter: CGPoint(x: cX, y: cY - 6), radius: (radius * scaleFactor * 0.4), startAngle:  .pi*5/4, endAngle: -.pi/4, clockwise: true)
         
         
-        circleLayer.setShapeLayer(path: circlePath, fillColor: .clear, lineWidth: lineW, strokeStart: 0, strokeEnd: 0, strokeColor: .white, position: view.center)
-        circleLayer2.setShapeLayer(path: circlePath2, fillColor: .clear, lineWidth: lineW, strokeStart: 0, strokeEnd: 0, strokeColor: .white, position: view.center)
-        circleLayer3.setShapeLayer(path: circlePath3, fillColor: .clear, lineWidth: lineW, strokeStart: 0, strokeEnd: 0, strokeColor: .white, position: view.center)
+        circleLayer.setShapeLayer(path: circlePath, fillColor: .clear, lineWidth: lineW, strokeStart: 0, strokeEnd: 0, strokeColor: .white)
+        circleLayer2.setShapeLayer(path: circlePath2, fillColor: .clear, lineWidth: lineW, strokeStart: 0, strokeEnd: 0, strokeColor: .white)
+        circleLayer3.setShapeLayer(path: circlePath3, fillColor: .clear, lineWidth: lineW, strokeStart: 0, strokeEnd: 0, strokeColor: .white)
         
-        let smallCirclePath = UIBezierPath(arcCenter: CGPoint(x: cX, y: cY-50), radius: (radius * scaleFactor * 0.1), startAngle:  0, endAngle: 2 * .pi, clockwise: true)
-        
-        
-        smallCircleLayer.setShapeLayer(path: smallCirclePath, fillColor: fillingColor, lineWidth: lineW - 1.5, strokeStart: 0, strokeEnd: 0, strokeColor: .white, position: view.center)
-        
-        smallCircleLayer.opacity = 0.0
-        
+
         self.addSublayer(circleLayer)
         self.addSublayer(circleLayer2)
         self.addSublayer(circleLayer3)
-        
         self.addSublayer(smallCircleLayer)
 
         
         let strokeEnd = LayerAnimationFactory.getStrokeEndAnimation(duration: animationDuration)
-
         strokeEnd.delegate = self
-        
         circleLayer.add(strokeEnd, forKey: "strokeEnd")
         
         strokeEnd.beginTime = CACurrentMediaTime() + strokeEnd.duration
         circleLayer2.add(strokeEnd, forKey: "strokeEnd")
-        
         
         strokeEnd.beginTime = CACurrentMediaTime() + strokeEnd.duration * 2
         circleLayer3.add(strokeEnd, forKey: "strokeEnd")
@@ -121,14 +111,10 @@ final class WifiEffect1: CAShapeLayer, CAAnimationDelegate {
         circleLayer2.add(spring, forKey: nil)
         circleLayer3.add(spring, forKey: nil)
         
-        
-        let translate = LayerAnimationFactory.getTranslateYAnimation(for: 1, withTanslation: 30)
-        let opacity = LayerAnimationFactory.setOpacity()
-        opacity.beginTime = CACurrentMediaTime() + strokeEnd.duration * 3
-        translate.beginTime = CACurrentMediaTime() + strokeEnd.duration * 3
-        smallCircleLayer.add(translate, forKey: "")
-        smallCircleLayer.add(opacity, forKey: "")
 
+        let translate = LayerAnimationFactory.getTranslateYAnimation(duration: 0.5, withTanslation: -10)
+        translate.beginTime = CACurrentMediaTime() + strokeEnd.duration * 3.1
+        smallCircleLayer.add(translate, forKey: "")
     }
     
 }
