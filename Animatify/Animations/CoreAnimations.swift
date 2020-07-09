@@ -53,6 +53,19 @@ enum LayerAnimationFactory {
        animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
        animation.autoreverses = false
        animation.byValue = translation ?? -5
+    animation.isRemovedOnCompletion = false
     return animation
        }
+    
+    
+    static func setOpacity(for duration : TimeInterval = 1,to Value : Float = 1.0) -> CABasicAnimation{
+          let animation : CABasicAnimation = CABasicAnimation(keyPath: "opacity")
+       animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+          animation.duration = duration
+          animation.autoreverses = false
+          animation.toValue = Value
+        animation.isRemovedOnCompletion = false
+       return animation
+          }
+    
 }
